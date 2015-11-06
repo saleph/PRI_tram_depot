@@ -1,6 +1,9 @@
 #ifndef TRAM_H_INCLUDED
 #define TRAM_H_INCLUDED
 
+#include <stdlib.h>
+#include <stdio.h>
+
 /* TODO: in list's structure - add field RECORD_NO */
 typedef struct {
     int line_no;
@@ -9,7 +12,7 @@ typedef struct {
     char *motorman_name;
 } Tram;
 
-extern Tram* new_tram(int, char*, int, char*);
-extern char* new_string(char*);
+Tram* new_tram(int, char*, int, char*);
+char* new_string(char*);
 
 #endif /* TRAM_H_INCLUDED */

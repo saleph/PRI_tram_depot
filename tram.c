@@ -1,5 +1,3 @@
-#include <stdlib.h>
-#include <stdio.h>
 #include "tram.h"
 
 Tram* new_tram(int line_no, char* tram_type, int side_no, char* motorman_name)
