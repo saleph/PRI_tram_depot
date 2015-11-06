@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "tram.h"
 
 Tram* new_tram(int line_no, char* tram_type, int side_no, char* motorman_name)
@@ -7,7 +8,7 @@ Tram* new_tram(int line_no, char* tram_type, int side_no, char* motorman_name)
     char* tram_type_ptr;
     char* motorman_name_ptr;
 
-    tram = malloc(sizeof(struct Tram))
+    tram = malloc(sizeof *tram);
     if (!tram) {
         printf("Blad alokacji pamieci dla struktury \"Tram\"!\n");
         return NULL;
@@ -44,6 +45,6 @@ char* new_string(char* my_string)
     if (!my_string_ptr)
         return NULL;
 
-    *my_string_ptr = my_string;
+    my_string_ptr = my_string;
     return my_string_ptr;
 }
