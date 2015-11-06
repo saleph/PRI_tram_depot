@@ -10,7 +10,6 @@ Tram* new_tram(int line_no, char* tram_type, int side_no, char* motorman_name)
     tram = malloc(sizeof(struct Tram))
     if (!tram) {
         printf("Blad alokacji pamieci dla struktury \"Tram\"!\n");
-        free(tram);
         return NULL;
     }
 
@@ -24,6 +23,7 @@ Tram* new_tram(int line_no, char* tram_type, int side_no, char* motorman_name)
     motorman_name_ptr = new_string(motorman_name);
     if (!motorman_name_ptr) {
         printf("Blad alokacji pamieci dla stringa \"imie_motorniczego\"!\n");
+        free(tram_type_ptr);
         free(tram);
         return NULL;
     }
