@@ -1,8 +1,5 @@
 #include <stdio.h>
-#include "depot.h"
-#define N 18
-
-
+#include "tram.h"
 
 
 int main()

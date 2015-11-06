@@ -1,5 +1,5 @@
-#ifndef DEPOT_H_INCLUDED
-#define DEPOT_H_INCLUDED
+#ifndef TRAM_H_INCLUDED
+#define TRAM_H_INCLUDED
 
 typedef struct {
     int line_no;
@@ -11,4 +11,4 @@ typedef struct {
 extern Tram* new_tram(int, char*, int, char*);
 extern char* new_string(char*);
 
-#endif // DEPOT_H_INCLUDED
+#endif // TRAM_H_INCLUDED
