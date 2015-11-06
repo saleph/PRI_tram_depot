@@ -37,22 +37,21 @@ Tram* new_tram(int line_no, char* tram_type, int side_no, char* motorman_name)
 
 char* new_string(char* my_string)
 {
-    char* my_string_ptr;
+    char* my_new_string;
 
-    my_string_ptr = malloc(sizeof my_string);
-    if (!my_string_ptr)
+    my_new_string = calloc(strlen(my_string) + 1, sizeof (char));
+    if (!my_new_string)
         return NULL;
 
-    my_string_ptr = my_string;
-    return my_string_ptr;
+    strcpy(my_new_string, my_string);
+    my_new_string[strlen(my_new_string) - 1] = '\0';
+
+    return my_new_string;
 }
 
 void delete_tram(Tram* tram)
 {
-    /*free(tram->tram_type);
-    printf("tram_type cleared");
+    free(tram->tram_type);
     free(tram->motorman_name);
-    printf("motorman cleared");*/
     free(tram);
-    printf("all struct cleared\n");
 }

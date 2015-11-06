@@ -3,6 +3,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 /* TODO: in list's structure - add field RECORD_NO */
 typedef struct {
