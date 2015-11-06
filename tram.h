@@ -14,5 +14,6 @@ typedef struct {
 
 Tram* new_tram(int, char*, int, char*);
 char* new_string(char*);
+void  delete_tram(Tram*);
 
 #endif /* TRAM_H_INCLUDED */

@@ -46,3 +46,13 @@ char* new_string(char* my_string)
     my_string_ptr = my_string;
     return my_string_ptr;
 }
+
+void delete_tram(Tram* tram)
+{
+    /*free(tram->tram_type);
+    printf("tram_type cleared");
+    free(tram->motorman_name);
+    printf("motorman cleared");*/
+    free(tram);
+    printf("all struct cleared\n");
+}

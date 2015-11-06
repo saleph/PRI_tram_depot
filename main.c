@@ -18,5 +18,8 @@ int main()
     for (i=0; i<n; i++)
         printf("%d %s %d %s\n", trams[i]->line_no, trams[i]->tram_type, trams[i]->side_no, trams[i]->motorman_name);
 
+    for (i=0; i<n; i++)
+        delete_tram(trams[i]);
+
     return 0;
 }
