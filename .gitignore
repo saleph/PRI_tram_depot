@@ -1,3 +1,9 @@
+# CodeBlocks files
+bin/*
+*.cbp
+*.depend
+*.layout
+
 # Object files
 *.o
 *.ko
