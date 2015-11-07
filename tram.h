@@ -15,6 +15,7 @@ typedef struct {
 } Tram;
 
 Tram* new_tram(int, char*, int, char*, char*);
+void edit_tram(Tram*, int, char*, int, char*, char*);
 void print_tram_info(Tram*);
 void delete_tram(Tram*);
 
