@@ -1,7 +1,7 @@
 #include "trams_list.h"
 
 
-void append_tram(Tram* a_new_tram)
+void append_tram(int line_no, char* tram_type, int side_no, char* motorman_surname, char* motorman_name)
 {
     struct ListNode* curr_node;
     struct ListNode* new_node;
@@ -15,7 +15,7 @@ void append_tram(Tram* a_new_tram)
         new_node->record_no = 1;
         new_node->next = NULL;
         new_node->prev = NULL;
-        new_node->tram = a_new_tram;
+        new_node->tram = new_tram(line_no, tram_type, side_no, motorman_surname, motorman_name);
         root = new_node;
         return;
     }
@@ -27,7 +27,26 @@ void append_tram(Tram* a_new_tram)
     new_node->record_no = curr_node->record_no + 1;
     new_node->next = NULL;
     new_node->prev = curr_node;
-    new_node->tram = a_new_tram;
+    new_node->tram = new_tram(line_no, tram_type, side_no, motorman_surname, motorman_name);
+}
+
+void edit_tram_with_index(int idx, int line_no, char* tram_type, int side_no, char* motorman_surname, char* motorman_name)
+{
+    struct ListNode* curr_node;
+
+    if (!root) {
+        printf("Lista jest pusta!\n");
+        return;
+    }
+
+    for (curr_node=root; (curr_node->record_no==idx || curr_node==NULL); curr_node=curr_node->next);
+
+    if (!curr_node) {
+        printf("Nie ma takiego elementu!\n");
+        return;
+    }
+
+    edit_tram(curr_node->tram, line_no, tram_type, side_no, motorman_surname, motorman_name);
 }
 
 void delete_tram_with_index(int idx)
@@ -35,14 +54,14 @@ void delete_tram_with_index(int idx)
     struct ListNode* curr_node;
 
     if (!root) {
-        printf("Nie mozna usunac elementu z pustej listy!\n");
+        printf("Lista jest pusta!\n");
         return;
     }
 
     for (curr_node=root; (curr_node->record_no==idx || curr_node==NULL); curr_node=curr_node->next);
 
     if (!curr_node) {
-        printf("Nie ma takiego indeksu!\n");
+        printf("Nie ma takiego elementu!\n");
         return;
     }
 

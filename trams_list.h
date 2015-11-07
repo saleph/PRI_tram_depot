@@ -10,7 +10,8 @@ struct ListNode {
     struct ListNode* next;
 } *root = NULL;
 
-void append_tram(Tram*);
+void append_tram(int, char*, int, char*, char*);
+void edit_tram_with_index(int, int, char*, int, char*, char*);
 void delete_tram_with_index(int);
 void move_back_records_no_from(struct ListNode*);
 
