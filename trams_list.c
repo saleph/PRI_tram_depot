@@ -33,33 +33,46 @@ void append_tram(Tram* a_new_tram)
 void delete_tram_with_index(int idx)
 {
     struct ListNode* curr_node;
-    for (curr_node=root; (curr_node->record_no==idx || curr_node->next==NULL); curr_node=curr_node->next);
 
-    if (curr_node->record_no == idx) {
-        /* cofniecie indeksow rekordow za usuwanym elementem */
-        move_back_records_no_from(curr_node->next);
+    if (!root) {
+        printf("Nie mozna usunac elementu z pustej listy!\n");
+        return;
+    }
 
-        /* jesli ogon, to nie mozna odniesc sie do curr_node->next->prev */
-        if (curr_node->next == NULL)
-            curr_node->prev->next = NULL;
-        /* jesli glowa, to nie mozna odniesc sie do curr_node->prev->next =>
-        curr_element byl rootem */
-        else if (curr_node->prev == NULL) {
-            curr_node->next->prev = NULL;
-            root = curr_node->next;
-        } else {
-            curr_node->prev->next = curr_node->next;
-            curr_node->next->prev = curr_node->prev;
-        }
+    for (curr_node=root; (curr_node->record_no==idx || curr_node==NULL); curr_node=curr_node->next);
 
-        delete_tram(curr_node->tram);
-        curr_node->next = curr_node->prev = NULL;
-        free(curr_node);
-    } else {
+    if (!curr_node) {
         printf("Nie ma takiego indeksu!\n");
         return;
     }
+
+    /* cofniecie indeksow rekordow za usuwanym elementem */
+    /* wykonuje jedna zbedna dekrementacje (elementu do usuniecia) */
+    /* ale nie wymaga obslugi 1-elementowej listy */
+    move_back_records_no_from(curr_node);
+
+    /* jesli curr_node jest rootem, nie jest wymagana ani dozwolona zadna podmiana wskaznikow */
+    if (curr_node != root) {
+        if (curr_node->next == NULL) {
+            /* jesli ogon */
+            curr_node->prev->next = NULL;
+        }
+        else if (curr_node->prev == NULL) {
+            /* jesli glowa */
+            curr_node->next->prev = NULL;
+            root = curr_node->next;
+        }
+        else {
+            curr_node->prev->next = curr_node->next;
+            curr_node->next->prev = curr_node->prev;
+        }
+    }
+
+    delete_tram(curr_node->tram);
+    curr_node->next = curr_node->prev = NULL;
+    free(curr_node);
 }
+
 
 void move_back_records_no_from(struct ListNode* node)
 {
