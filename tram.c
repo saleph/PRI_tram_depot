@@ -51,5 +51,6 @@ void delete_tram(Tram* tram)
 {
     free(tram->tram_type);
     free(tram->motorman_name);
+    free(tram->motorman_surname);
     free(tram);
 }
