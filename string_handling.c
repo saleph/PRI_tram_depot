@@ -10,7 +10,9 @@ char* new_string(char* my_string)
         return NULL;
 
     strcpy(my_new_string, my_string);
-    my_new_string[strlen(my_new_string) - 1] = '\0';
+    /* len(my_string) jest ostatnim elementem my_new_string,
+    bo len nie uwzglednia '\0' */
+    my_new_string[strlen(my_string)] = '\0';
 
     return my_new_string;
 }
