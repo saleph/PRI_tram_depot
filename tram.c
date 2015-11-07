@@ -12,6 +12,7 @@ Tram* new_tram(int line_no, char* tram_type, int side_no, char* motorman_name)
         return NULL;
     }
 
+    /* new_string z nagłówka string_handling.h */
     tram_type_ptr = new_string(tram_type);
     if (!tram_type_ptr) {
         printf("Blad alokacji pamieci dla stringa \"typ_tramwaju\"!\n");
@@ -33,20 +34,6 @@ Tram* new_tram(int line_no, char* tram_type, int side_no, char* motorman_name)
     tram->motorman_name = motorman_name_ptr;
 
     return tram;
-}
-
-char* new_string(char* my_string)
-{
-    char* my_new_string;
-
-    my_new_string = calloc(strlen(my_string) + 1, sizeof (char));
-    if (!my_new_string)
-        return NULL;
-
-    strcpy(my_new_string, my_string);
-    my_new_string[strlen(my_new_string) - 1] = '\0';
-
-    return my_new_string;
 }
 
 void delete_tram(Tram* tram)
