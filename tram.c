@@ -47,6 +47,12 @@ Tram* new_tram(int line_no, char* tram_type, int side_no, char* motorman_surname
     return tram;
 }
 
+void print_tram_info(Tram* tram)
+{
+    printf("%d %s %d %s %s\n", tram->line_no, tram->tram_type,
+           tram->side_no, tram->motorman_surname, tram->motorman_name);
+}
+
 void delete_tram(Tram* tram)
 {
     free(tram->tram_type);
