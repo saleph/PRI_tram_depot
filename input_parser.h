@@ -5,6 +5,9 @@
 #include <stdlib.h>
 #include "string_handling.h"
 
+/* wynikiem parsowania stringa jest tablica stringow
+o pieciu elementach: numer linii, typ tramwaju,
+numer boczny, nazwisko motorniczego, imie motorniczego */
 char** parse(char*);
 void delete_input_data_array(char**);
 
