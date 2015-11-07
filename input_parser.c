@@ -23,7 +23,7 @@ char** parse(char* input_string)
     }
 
     /* inicjacja tablicy stringow */
-    fields = calloc(5, sizeof(char*));
+    fields = calloc(DATAFIELDS, sizeof(char*));
     if (!fields) {
         printf("Blad alokacji pamieci dla tablicy danych tramwaju!\n");
         free(input_data);
@@ -41,7 +41,7 @@ char** parse(char* input_string)
     fields[0] = new_string(field);
 
 
-    for (i=1; i<5; i++) {
+    for (i=1; i<DATAFIELDS; i++) {
         /* wydziel kolejne pole */
         field = strtok(NULL, " ");
 
@@ -66,6 +66,25 @@ char** parse(char* input_string)
 void delete_input_data_array(char** data_array)
 {
     int i;
-    for (i=0; i<5; i++) free(data_array[i]);
+    for (i=0; i<DATAFIELDS; i++) free(data_array[i]);
     free(data_array);
+}
+
+int to_number(char* a_string)
+{
+    unsigned int i;
+    int number;
+    number = to_digit(a_string[0])
+    for (i=1; i<strlen(a_string); i++)
+        number = number*10 + to_digit(a_string[i]);
+
+    return number;
+}
+
+int to_digit(char character)
+{
+    int digit;
+    /* sprawdzenie, czy to cyfra nastapilo w validator.h */
+    digit = (int)character - (int)('0');
+    return digit;
 }
