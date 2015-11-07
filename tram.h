@@ -10,11 +10,11 @@ typedef struct {
     int line_no;
     char *tram_type;
     int side_no;
+    char *motorman_surname;
     char *motorman_name;
 } Tram;
 
-Tram* new_tram(int, char*, int, char*);
-
+Tram* new_tram(int, char*, int, char*, char*);
 void  delete_tram(Tram*);
 
 #endif /* TRAM_H_INCLUDED */
