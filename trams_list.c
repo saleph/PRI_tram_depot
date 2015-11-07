@@ -92,7 +92,6 @@ void delete_tram_with_index(int idx)
     free(curr_node);
 }
 
-
 void move_back_records_no_from(struct ListNode* node)
 {
     struct ListNode* curr_element;

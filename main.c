@@ -1,22 +1,26 @@
-#include <stdio.h>
 #include "tram.h"
+#include "input_parser.h"
 
 
 int main()
 {
     int n,i;
     Tram* trams[10];
-    char *t1, *t2;
+    char *t1;
 
     n = 10;
 
+    t1 = "adam ewa mary kochana wow";
+
+    parse(t1);
+
     for (i=0; i<n; i++) {
         t1 = "sdfa";
-        trams[i] = new_tram(i, t1, i, t1);
+        trams[i] = new_tram(i, t1, i, t1, t1);
     }
 
     for (i=0; i<n; i++)
-        printf("%d %s %d %s\n", trams[i]->line_no, trams[i]->tram_type, trams[i]->side_no, trams[i]->motorman_name);
+        print_tram_info(trams[i]);
 
     for (i=0; i<n; i++)
         delete_tram(trams[i]);

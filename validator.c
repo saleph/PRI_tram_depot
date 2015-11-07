@@ -45,6 +45,7 @@ int is_input_data_valid(char** input_data)
     } else if (validation_status == 2)
         make_first_upper_next_lower(input_data[4]);
 
+    /* jesli wszystko poszlo dobrze */
     return 1;
 }
 
