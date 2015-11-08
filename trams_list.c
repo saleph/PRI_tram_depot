@@ -129,10 +129,11 @@ void print_the_list_by_record_no()
 {
     struct ListNode* curr_node;
     if (!root) {
-        printf("Lista jest pusta!\n");
+        printf("\nLista jest pusta!\n");
         return;
     }
 
+    printf("Rosnaco wzgledem kolejnosci wprowadzania:\n");
     for (curr_node=root; curr_node; curr_node=curr_node->next) {
         printf("%d. ", curr_node->record_no);
         print_tram_info(curr_node->tram);
