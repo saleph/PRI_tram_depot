@@ -21,9 +21,10 @@ int main()
     print_the_list_by_record_no();
     printf("\n\nPo edycji:\n");
 
-    edit_tram_with_index_form_input_string(4, "00 lolo1 9999 x x");
+    edit_tram_with_index_form_input_string(5, "00 lolo1 9999 x x");
     print_the_list_by_record_no();
 
+    printf("\n\n");
     delete_the_all_list();
     print_the_list_by_record_no();
 }

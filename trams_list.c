@@ -50,7 +50,12 @@ void edit_tram_with_index(int idx, int line_no, char* tram_type, int side_no, ch
         return;
     }
 
-    for (curr_node=root; (curr_node->record_no==idx || curr_node==NULL); curr_node=curr_node->next);
+    curr_node = root;
+    while (curr_node) {
+        if (curr_node->record_no == idx)
+            break;
+        curr_node = curr_node->next;
+    }
 
     if (!curr_node) {
         printf("Nie ma takiego elementu!\n");
