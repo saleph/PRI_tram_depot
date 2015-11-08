@@ -1,18 +1,21 @@
 #include "depot.h"
 
 
+void initialize_list()
+{
+    add_new_tram_from_input_string("02 ab100 0005 a a");
+    add_new_tram_from_input_string("05 cd101 0002 b b");
+    add_new_tram_from_input_string("01 efsfs 0001 c d");
+    add_new_tram_from_input_string("05 ghafs 0003 d c");
+}
+
+
 int main()
 {
-    add_new_tram_from_input_string("24 ts235 1234 burCZXZymUcha anDZXrew");
-    print_the_list();
-    printf("\n");
-    add_new_tram_from_input_string("23 ts253 1234 burCZymUchaasdf anDreXw");
-    print_the_list();
-    printf("\n");
-    add_new_tram_from_input_string("21 ts223 1234 burCZymUchaaaaaaa anDreXZw");
-    print_the_list();
-    printf("\n");
-    add_new_tram_from_input_string("11 ts255 1234 burCZymUchaffdfdfdf aaanDrew");
-    print_the_list();
-    printf("\n");
+    initialize_list();
+    print_the_list_by_line_no();
+    printf("\n\n");
+    print_the_list_by_record_no();
+    printf("\n\n");
+    print_the_list_by_tram_type();
 }

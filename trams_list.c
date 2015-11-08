@@ -2,6 +2,7 @@
 
 
 struct ListNode* root = NULL;
+int list_size = 0;
 
 void append_tram(int line_no, char* tram_type, int side_no, char* motorman_surname, char* motorman_name)
 {
@@ -15,6 +16,7 @@ void append_tram(int line_no, char* tram_type, int side_no, char* motorman_surna
 
     if (!root) {
         new_node->record_no = 1;
+        list_size = 1;
         new_node->next = NULL;
         new_node->prev = NULL;
         new_node->tram = new_tram(line_no, tram_type, side_no, motorman_surname, motorman_name);
@@ -25,8 +27,14 @@ void append_tram(int line_no, char* tram_type, int side_no, char* motorman_surna
     for (curr_node=root; curr_node->next; curr_node=curr_node->next);
     /* teraz w curr_node mamy ostatni element listy */
 
+    if (curr_node->record_no >= 18) {
+        printf("Przepelnienie: lista zawiera juz 17 elementow!\n");
+        free(new_node);
+        return;
+    }
 
     new_node->record_no = curr_node->record_no + 1;
+    list_size++;
     new_node->next = NULL;
     new_node->prev = curr_node;
     curr_node->next = new_node;
@@ -90,6 +98,7 @@ void delete_tram_with_index(int idx)
         }
     }
 
+    list_size--;
     delete_tram(curr_node->tram);
     curr_node->next = curr_node->prev = NULL;
     free(curr_node);
@@ -102,11 +111,132 @@ void move_back_records_no_from(struct ListNode* node)
         curr_element->record_no--;
 }
 
-void print_the_list()
+void print_the_list_by_record_no()
 {
     struct ListNode* curr_node;
     for (curr_node=root; curr_node; curr_node=curr_node->next) {
         printf("%d. ", curr_node->record_no);
         print_tram_info(curr_node->tram);
     }
+}
+
+void print_the_list_by_line_no()
+{
+    int i;
+    struct ListNode** nodes_array;
+    nodes_array = create_nodes_array();
+    if (!nodes_array)
+        return;
+
+    sort_by_line_no(nodes_array);
+
+    printf("Rosnaco wzgledem numeru linii:\n");
+    for (i=0; i<list_size; i++) {
+        printf("%d. ", nodes_array[i]->record_no);
+        print_tram_info(nodes_array[i]->tram);
+    }
+
+    delete_nodes_array(nodes_array);
+}
+
+struct ListNode** create_nodes_array()
+{
+    /* alokacja tablicy wskaznikow do elementow listy */
+    int i;
+    struct ListNode* curr_node;
+    struct ListNode** nodes_array;
+    nodes_array = calloc(list_size, sizeof(struct ListNode*));
+    if (!nodes_array) {
+        printf("Blad alokacji tymczasowej tablicy uzywanej do sortowania!\n");
+        return NULL;
+    }
+
+    /* podpiecie wskaznikow wezlow do elementow tablicy */
+    for (i=0, curr_node=root; i<list_size && curr_node; i++, curr_node=curr_node->next)
+        nodes_array[i] = curr_node;
+
+    return nodes_array;
+}
+
+void delete_nodes_array(struct ListNode** nodes_array)
+{
+    /* nie chcemy czyscic konkretnych wezlow, bo to zniszczylo by dane */
+    free(nodes_array);
+}
+
+void sort_by_line_no(struct ListNode** nodes_array)
+{
+    int i, n;
+    struct ListNode* temp_node;
+    n = list_size;
+
+    do {
+        for (i=0; i<n-1; i++) {
+            if (nodes_array[i]->tram->line_no > nodes_array[i+1]->tram->line_no)
+                swap_nodes(nodes_array[i], nodes_array[i+1]);
+
+            if (nodes_array[i]->tram->line_no == nodes_array[i+1]->tram->line_no)
+                if(nodes_array[i]->tram->side_no > nodes_array[i+1]->tram->side_no)
+                    swap_nodes(nodes_array[i], nodes_array[i+1]);
+        }
+        n--;
+    } while (n > 1);
+}
+
+void swap_nodes(struct ListNode* first_node, struct ListNode* second_node)
+{
+    struct ListNode* temp_node;
+    temp_node = first_node;
+    first_node = second_node;
+    second_node = temp_node;
+}
+
+void print_the_list_by_tram_type()
+{
+    int i;
+    struct ListNode** nodes_array;
+    nodes_array = create_nodes_array();
+    if (!nodes_array)
+        return;
+
+    sort_by_tram_type(nodes_array);
+
+    printf("Alfabetycznie wzgledem typu tramwaju:\n");
+    for (i=0; i<list_size; i++) {
+        printf("%d. ", nodes_array[i]->record_no);
+        print_tram_info(nodes_array[i]->tram);
+    }
+
+    delete_nodes_array(nodes_array);
+}
+
+void sort_by_tram_type(struct ListNode** nodes_array)
+{
+    int i, n, ret_value;
+    struct ListNode* temp_node;
+    n = list_size;
+
+    do {
+        for (i=0; i<n-1; i++) {
+            /* porownaj typ tramwaju */
+            ret_value = strcmp(nodes_array[i]->tram->tram_type, nodes_array[i+1]->tram->tram_type);
+            if (ret_value > 0)
+                swap_nodes(nodes_array[i], nodes_array[i+1]);
+
+            if (ret_value == 0) {
+                /* jesli takie same, porownaj nazwiska */
+                ret_value = strcmp(nodes_array[i]->tram->motorman_surname, nodes_array[i+1]->tram->motorman_surname);
+                if(ret_value > 0)
+                    swap_nodes(nodes_array[i], nodes_array[i+1]);
+
+                if (ret_value == 0) {
+                    /* jesli takie same, porownaj imiona */
+                    ret_value = strcmp(nodes_array[i]->tram->motorman_name, nodes_array[i+1]->tram->motorman_name);
+                    if(ret_value > 0)
+                        swap_nodes(nodes_array[i], nodes_array[i+1]);
+                }
+            }
+        }
+        n--;
+    } while (n > 1);
 }

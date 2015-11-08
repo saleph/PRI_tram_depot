@@ -92,7 +92,7 @@ void edit_tram(Tram* tram, int line_no, char* tram_type, int side_no, char* moto
 
 void print_tram_info(Tram* tram)
 {
-    printf("%d %s %d %s %s\n", tram->line_no, tram->tram_type,
+    printf("%02d %s %04d %s %s\n", tram->line_no, tram->tram_type,
            tram->side_no, tram->motorman_surname, tram->motorman_name);
 }
 
