@@ -173,22 +173,22 @@ void sort_by_line_no(struct ListNode** nodes_array)
     do {
         for (i=0; i<n-1; i++) {
             if (nodes_array[i]->tram->line_no > nodes_array[i+1]->tram->line_no)
-                swap_nodes(nodes_array[i], nodes_array[i+1]);
+                swap_nodes(&nodes_array[i], &nodes_array[i+1]);
 
             if (nodes_array[i]->tram->line_no == nodes_array[i+1]->tram->line_no)
                 if(nodes_array[i]->tram->side_no > nodes_array[i+1]->tram->side_no)
-                    swap_nodes(nodes_array[i], nodes_array[i+1]);
+                    swap_nodes(&nodes_array[i], &nodes_array[i+1]);
         }
         n--;
     } while (n > 1);
 }
 
-void swap_nodes(struct ListNode* first_node, struct ListNode* second_node)
+void swap_nodes(struct ListNode ** first_node, struct ListNode ** second_node)
 {
     struct ListNode* temp_node;
-    temp_node = first_node;
-    first_node = second_node;
-    second_node = temp_node;
+    temp_node = *first_node;
+    *first_node = *second_node;
+    *second_node = temp_node;
 }
 
 void print_the_list_by_tram_type()
@@ -221,19 +221,19 @@ void sort_by_tram_type(struct ListNode** nodes_array)
             /* porownaj typ tramwaju */
             ret_value = strcmp(nodes_array[i]->tram->tram_type, nodes_array[i+1]->tram->tram_type);
             if (ret_value > 0)
-                swap_nodes(nodes_array[i], nodes_array[i+1]);
+                swap_nodes(&nodes_array[i], &nodes_array[i+1]);
 
             if (ret_value == 0) {
                 /* jesli takie same, porownaj nazwiska */
                 ret_value = strcmp(nodes_array[i]->tram->motorman_surname, nodes_array[i+1]->tram->motorman_surname);
                 if(ret_value > 0)
-                    swap_nodes(nodes_array[i], nodes_array[i+1]);
+                    swap_nodes(&nodes_array[i], &nodes_array[i+1]);
 
                 if (ret_value == 0) {
                     /* jesli takie same, porownaj imiona */
                     ret_value = strcmp(nodes_array[i]->tram->motorman_name, nodes_array[i+1]->tram->motorman_name);
                     if(ret_value > 0)
-                        swap_nodes(nodes_array[i], nodes_array[i+1]);
+                        swap_nodes(&nodes_array[i], &nodes_array[i+1]);
                 }
             }
         }

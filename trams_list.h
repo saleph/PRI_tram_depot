@@ -31,6 +31,6 @@ void delete_nodes_array(struct ListNode**);
 void sort_by_line_no(struct ListNode**);
 void sort_by_tram_type(struct ListNode**);
 
-void swap_nodes(struct ListNode*, struct ListNode*);
+void swap_nodes(struct ListNode**, struct ListNode**);
 
 #endif /* TRAMS_LIST_H_INCLUDED */
