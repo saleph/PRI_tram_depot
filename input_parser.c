@@ -74,7 +74,7 @@ int to_number(char* a_string)
 {
     unsigned int i;
     int number;
-    number = to_digit(a_string[0])
+    number = to_digit(a_string[0]);
     for (i=1; i<strlen(a_string); i++)
         number = number*10 + to_digit(a_string[i]);
 

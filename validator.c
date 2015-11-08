@@ -19,8 +19,9 @@ int is_input_data_valid(char** input_data)
     if(validation_status == 0) {
         printf("Numer linii jest nieprawidlowy!\n");
         return 0;
-    } else if (validation_status == 2)
+    } else if (validation_status == 2) {
         make_string_uppercase(input_data[1]);
+    }
 
     /* walidacja numeru bocznego tramwaju */
     validation_status = is_side_no_valid(input_data[2]);
@@ -34,16 +35,18 @@ int is_input_data_valid(char** input_data)
     if(validation_status == 0) {
         printf("Nazwisko motorniczego jest nieprawidlowe!\n");
         return 0;
-    } else if (validation_status == 2)
+    } else if (validation_status == 2) {
         make_first_upper_next_lower(input_data[3]);
+    }
 
     /* walidacja imienia */
     validation_status = is_motorman_name_valid(input_data[4]);
     if(validation_status == 0) {
         printf("Imie motorniczego jest nieprawidlowe!\n");
         return 0;
-    } else if (validation_status == 2)
+    } else if (validation_status == 2) {
         make_first_upper_next_lower(input_data[4]);
+    }
 
     /* jesli wszystko poszlo dobrze */
     return 1;
@@ -136,7 +139,7 @@ void make_string_uppercase(char* a_string)
 
 void make_char_uppercase(char *character)
 {
-    *character -= (int)('z') - (int)('a') + (int)('a') - (int)('Z');
+    *character -= (int)('z') - (int)('Z');
 }
 
 int is_side_no_valid(char* side_no)
@@ -200,16 +203,16 @@ void make_first_upper_next_lower(char* a_string)
     unsigned int i;
 
     if (is_lowercase(a_string[0]))
-        make_char_uppercase(a_string[0]);
+        make_char_uppercase(&a_string[0]);
 
     for (i=1; i<strlen(a_string); i++)
         if (is_uppercase(a_string[i]))
-            make_char_lowercase(a_string[i]);
+            make_char_lowercase(&a_string[i]);
 }
 
 void make_char_lowercase(char* character)
 {
-    *character += (int)('Z') - (int)('A') + (int)('a') - (int)('Z');
+    *character += (int)('a') - (int)('A');
 }
 
 int is_motorman_name_valid(char* name)

@@ -18,7 +18,7 @@ int is_uppercase(char);
 int is_lowercase(char);
 
 void make_first_upper_next_lower(char*);
-void make_uppercase(char*);
+void make_string_uppercase(char*);
 void make_char_uppercase(char*);
 void make_char_lowercase(char*);
 
