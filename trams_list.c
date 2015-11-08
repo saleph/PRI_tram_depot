@@ -1,6 +1,8 @@
 #include "trams_list.h"
 
 
+struct ListNode* root = NULL;
+
 void append_tram(int line_no, char* tram_type, int side_no, char* motorman_surname, char* motorman_name)
 {
     struct ListNode* curr_node;
@@ -27,6 +29,7 @@ void append_tram(int line_no, char* tram_type, int side_no, char* motorman_surna
     new_node->record_no = curr_node->record_no + 1;
     new_node->next = NULL;
     new_node->prev = curr_node;
+    curr_node->next = new_node;
     new_node->tram = new_tram(line_no, tram_type, side_no, motorman_surname, motorman_name);
 }
 
@@ -97,4 +100,13 @@ void move_back_records_no_from(struct ListNode* node)
     struct ListNode* curr_element;
     for(curr_element=node; curr_element; curr_element=curr_element->next)
         curr_element->record_no--;
+}
+
+void print_the_list()
+{
+    struct ListNode* curr_node;
+    for (curr_node=root; curr_node; curr_node=curr_node->next) {
+        printf("%d. ", curr_node->record_no);
+        print_tram_info(curr_node->tram);
+    }
 }
