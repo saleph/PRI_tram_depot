@@ -23,11 +23,6 @@ void edit_tram_with_index_form_input_string(int idx, char* input_string)
 {
     char** input_data;
 
-    if (!is_digit(idx)) {
-        printf("Niewlasciwy indeks!\n");
-        return;
-    }
-
     input_data = parse(input_string);
     /* jesli parsowanie sie nie powiodlo, zwroci bledy i NULL */
     if(!input_data)
@@ -44,9 +39,5 @@ void edit_tram_with_index_form_input_string(int idx, char* input_string)
 
 void delete_tram_with_index_from_list(int idx)
 {
-    if (!is_digit(idx)) {
-        printf("Niewlasciwy indeks!\n");
-        return;
-    }
     delete_tram_with_index(idx);
 }

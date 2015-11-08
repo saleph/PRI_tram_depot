@@ -69,7 +69,12 @@ void delete_tram_with_index(int idx)
         return;
     }
 
-    for (curr_node=root; (curr_node->record_no==idx || curr_node==NULL); curr_node=curr_node->next);
+    curr_node = root;
+    while (curr_node) {
+        if (curr_node->record_no == idx)
+            break;
+        curr_node = curr_node->next;
+    }
 
     if (!curr_node) {
         printf("Nie ma takiego elementu!\n");
@@ -82,7 +87,7 @@ void delete_tram_with_index(int idx)
     move_back_records_no_from(curr_node);
 
     /* jesli curr_node jest rootem, nie jest wymagana ani dozwolona zadna podmiana wskaznikow */
-    if (curr_node != root) {
+    if (list_size > 1) {
         if (curr_node->next == NULL) {
             /* jesli ogon */
             curr_node->prev->next = NULL;
@@ -102,6 +107,10 @@ void delete_tram_with_index(int idx)
     delete_tram(curr_node->tram);
     curr_node->next = curr_node->prev = NULL;
     free(curr_node);
+
+    /* jesli juz cala lista zostala usunieta */
+    if (!list_size)
+        root = NULL;
 }
 
 void move_back_records_no_from(struct ListNode* node)
@@ -114,6 +123,11 @@ void move_back_records_no_from(struct ListNode* node)
 void print_the_list_by_record_no()
 {
     struct ListNode* curr_node;
+    if (!root) {
+        printf("Lista jest pusta!\n");
+        return;
+    }
+
     for (curr_node=root; curr_node; curr_node=curr_node->next) {
         printf("%d. ", curr_node->record_no);
         print_tram_info(curr_node->tram);
@@ -124,6 +138,12 @@ void print_the_list_by_line_no()
 {
     int i;
     struct ListNode** nodes_array;
+
+    if (!root) {
+        printf("Lista jest pusta!\n");
+        return;
+    }
+
     nodes_array = create_nodes_array();
     if (!nodes_array)
         return;
@@ -183,7 +203,7 @@ void sort_by_line_no(struct ListNode** nodes_array)
     } while (n > 1);
 }
 
-void swap_nodes(struct ListNode ** first_node, struct ListNode ** second_node)
+void swap_nodes(struct ListNode** first_node, struct ListNode** second_node)
 {
     struct ListNode* temp_node;
     temp_node = *first_node;
@@ -195,6 +215,12 @@ void print_the_list_by_tram_type()
 {
     int i;
     struct ListNode** nodes_array;
+
+    if (!root) {
+        printf("Lista jest pusta!\n");
+        return;
+    }
+
     nodes_array = create_nodes_array();
     if (!nodes_array)
         return;
@@ -239,4 +265,12 @@ void sort_by_tram_type(struct ListNode** nodes_array)
         }
         n--;
     } while (n > 1);
+}
+
+void delete_the_all_list()
+{
+    int i, n;
+    n = list_size;
+    for(i=0; i<n; i++)
+        delete_tram_with_index(1);
 }

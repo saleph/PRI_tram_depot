@@ -21,6 +21,8 @@ void print_the_list_by_record_no();
 void print_the_list_by_line_no();
 void print_the_list_by_tram_type();
 
+void delete_the_all_list();
+
 
 /* funkcje wewnetrzne */
 void move_back_records_no_from(struct ListNode*);
