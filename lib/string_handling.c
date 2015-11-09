@@ -1,4 +1,4 @@
-#include "string_handling.h"
+#include "../include/string_handling.h"
 
 
 char* new_string(char* my_string)

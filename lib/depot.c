@@ -1,4 +1,4 @@
-#include "depot.h"
+#include "../include/depot.h"
 
 
 void add_new_tram_from_input_string(char* input_string)

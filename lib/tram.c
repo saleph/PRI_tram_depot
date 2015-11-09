@@ -1,4 +1,4 @@
-#include "tram.h"
+#include "../include/tram.h"
 
 Tram* new_tram(int line_no, char* tram_type, int side_no, char* motorman_surname, char* motorman_name)
 {

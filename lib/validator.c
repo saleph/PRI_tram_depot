@@ -1,4 +1,4 @@
-#include "validator.h"
+#include "../include/validator.h"
 
 
 int is_input_data_valid(char** input_data)
