@@ -43,6 +43,7 @@ void start_ui()
 {
     int choice, idx;
     printf("Witaj w programie do obslugi zajezdni tramwajowej!\n");
+    printf("----------------------------------------\n\n");
 
     for(;;) {
         print_menu();
@@ -58,7 +59,6 @@ void start_ui()
 
 void print_menu()
 {
-    printf("----------------------------------------\n\n");
     printf("MENU\n");
     printf("   Manipulacja danymi:\n");
     printf("1: Dodaj nowa pozycje.\n");
@@ -71,6 +71,7 @@ void print_menu()
     printf("6: Alfabetycznie wedlug typu tramwaju, a w ramach tego wedlug nazwiska i imienia motorniczego.\n");
     printf("------------\n");
     printf("0: WYJSCIE.\n");
+    printf("Podaj numer operacji i nacisnij enter: ");
 }
 
 void do_procedure(int choice)
@@ -78,33 +79,38 @@ void do_procedure(int choice)
     switch(choice)
     {
         case 1: {
-            printf("================================\n\n");
+            cls();
             adding_new_record();
             break;
         }
         case 2: {
-            printf("================================\n\n");
+            cls();
             editing_record();
             break;
         }
         case 3: {
-            printf("================================\n\n");
+            cls();
             deleting_record();
             break;
         }
         case 4: {
-            printf("================================\n\n");
+            cls();
             print_the_list_by_record_no();
             break;
         }
         case 5: {
-            printf("================================\n\n");
+            cls();
             print_the_list_by_line_no();
             break;
         }
         case 6: {
-            printf("================================\n\n");
+            cls();
             print_the_list_by_tram_type();
+            break;
+        }
+        default: {
+            cls();
+            printf("Pozycja menu o takim numerze nie istnieje!\n");
             break;
         }
     }
@@ -112,24 +118,40 @@ void do_procedure(int choice)
 
 void adding_new_record()
 {
-    int i;
-    char input_string[256], temp;
+    char input_string[256];
     print_the_list_by_record_no();
-    printf("--------\n");
     printf("Podaj dane nowego rekordu:\n");
     printf("[numer linii: 2 cyfry] [typ tramwaju] [numer boczny: 4 cyfry] [nazwisko motorniczego] [imie motorniczego]\n");
 
     scanf(" %255[^\n]", &input_string);
 
+    cls();
     add_new_tram_from_input_string(input_string);
 }
 
 void editing_record()
 {
-    return;
+    int idx;
+    char input_string[256];
+    print_the_list_by_record_no();
+    printf("Podaj numer rekordu do edycji: ");
+    scanf("%d", &idx);
+    printf("\nPodaj nowe dane rekordu (%d.):\n", idx);
+    printf("[numer linii: 2 cyfry] [typ tramwaju] [numer boczny: 4 cyfry] [nazwisko motorniczego] [imie motorniczego]\n");
+
+    scanf(" %255[^\n]", &input_string);
+
+    cls();
+    edit_tram_with_index_form_input_string(idx, input_string);
 }
 
 void deleting_record()
 {
-    return;
+    int idx;
+    print_the_list_by_record_no();
+    printf("Podaj numer rekordu do usuniecia: ");
+    scanf("%d", &idx);
+
+    cls();
+    delete_tram_with_index(idx);
 }

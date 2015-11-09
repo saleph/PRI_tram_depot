@@ -138,6 +138,8 @@ void print_the_list_by_record_no()
         printf("%d. ", curr_node->record_no);
         print_tram_info(curr_node->tram);
     }
+
+    printf("--------\n");
 }
 
 void print_the_list_by_line_no()
@@ -163,6 +165,7 @@ void print_the_list_by_line_no()
     }
 
     delete_nodes_array(nodes_array);
+    printf("--------\n");
 }
 
 struct ListNode** create_nodes_array()
@@ -240,6 +243,7 @@ void print_the_list_by_tram_type()
     }
 
     delete_nodes_array(nodes_array);
+    printf("--------\n");
 }
 
 void sort_by_tram_type(struct ListNode** nodes_array)

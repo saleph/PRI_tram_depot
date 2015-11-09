@@ -33,7 +33,7 @@ char** parse(char* input_string)
     /* pierwsza wydzielenie pola z danymi */
     field = strtok(input_data, " ");
     if (!field) {
-        printf("Blad alokacji pamieci dla stringa w tablicy danych tramwaju!\n");
+        printf("Za malo danych opisujacych rekord!\n");
         free(fields);
         free(input_data);
         return NULL;
@@ -47,9 +47,7 @@ char** parse(char* input_string)
 
         /* jesli strtok zwrocil NULL */
         if (!field) {
-            /* jesli pojawily sie tylko 4 pola, to strtok przy 5 obrocie zwroci juz NULL */
-            if (i == 4) printf("Brak imienia/nazwiska motorniczego!\n");
-            else printf("Blad alokacji pamieci dla stringa w tablicy danych tramwaju!\n");
+            printf("Za malo danych opisujacych rekord!\n");
             /* czyszczenie juz zaalokowanych stringow */
             for (j=0; j<i; j++) free(fields[i]);
             free(fields);
