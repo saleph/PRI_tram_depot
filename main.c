@@ -12,6 +12,7 @@ void cls();
 
 int main()
 {
+    cls();
     initialize_list();
 
     start_ui();
