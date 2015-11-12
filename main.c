@@ -41,16 +41,18 @@ void cls()
 
 void start_ui()
 {
-    int choice, idx;
+    char choice[20];
+    int choice_value;
     printf("Witaj w programie do obslugi zajezdni tramwajowej!\n");
     printf("----------------------------------------\n\n");
 
     for(;;) {
         print_menu();
-        scanf("%d", &choice);
-        if (!choice) break;
+        scanf("%19s", &choice);
+        choice_value = to_number(choice);
+        if (!choice_value) break;
 
-        do_procedure(choice);
+        do_procedure(choice_value);
     }
 
     printf("\n=======================\n");
@@ -131,27 +133,31 @@ void adding_new_record()
 
 void editing_record()
 {
-    int idx;
-    char input_string[256];
+    int idx_value;
+    char input_string[256], idx[20];
     print_the_list_by_record_no();
     printf("Podaj numer rekordu do edycji: ");
-    scanf("%d", &idx);
-    printf("\nPodaj nowe dane rekordu (%d.):\n", idx);
+    scanf("%19s", &idx);
+    idx_value = to_number(idx);
+
+    printf("\nPodaj nowe dane rekordu (%d.):\n", idx_value);
     printf("[numer linii: 2 cyfry] [typ tramwaju] [numer boczny: 4 cyfry] [nazwisko motorniczego] [imie motorniczego]\n");
 
     scanf(" %255[^\n]", &input_string);
 
     cls();
-    edit_tram_with_index_form_input_string(idx, input_string);
+    edit_tram_with_index_form_input_string(idx_value, input_string);
 }
 
 void deleting_record()
 {
-    int idx;
+    int idx_value;
+    char idx[20];
     print_the_list_by_record_no();
     printf("Podaj numer rekordu do usuniecia: ");
-    scanf("%d", &idx);
+    scanf("%19s", &idx);
+    idx_value = to_number(idx);
 
     cls();
-    delete_tram_with_index(idx);
+    delete_tram_with_index(idx_value);
 }
