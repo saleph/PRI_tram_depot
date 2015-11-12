@@ -196,7 +196,6 @@ void delete_nodes_array(struct ListNode** nodes_array)
 void sort_by_line_no(struct ListNode** nodes_array)
 {
     int i, n;
-    struct ListNode* temp_node;
     n = list_size;
 
     do {
@@ -249,7 +248,6 @@ void print_the_list_by_tram_type()
 void sort_by_tram_type(struct ListNode** nodes_array)
 {
     int i, n, ret_value;
-    struct ListNode* temp_node;
     n = list_size;
 
     do {
