@@ -63,7 +63,7 @@ void edit_tram(Tram* tram, int line_no, char* tram_type, int side_no, char* moto
     if (!tram_type_ptr) {
         printf("Blad alokacji pamieci dla stringa \"typ_tramwaju\"!\n");
         free(tram);
-        return NULL;
+        return;
     }
 
     motorman_surname_ptr = new_string(motorman_surname);
@@ -71,7 +71,7 @@ void edit_tram(Tram* tram, int line_no, char* tram_type, int side_no, char* moto
         printf("Blad alokacji pamieci dla stringa \"imie_motorniczego\"!\n");
         free(tram_type_ptr);
         free(tram);
-        return NULL;
+        return;
     }
 
     motorman_name_ptr = new_string(motorman_name);
@@ -80,7 +80,7 @@ void edit_tram(Tram* tram, int line_no, char* tram_type, int side_no, char* moto
         free(tram_type_ptr);
         free(motorman_surname_ptr);
         free(tram);
-        return NULL;
+        return;
     }
 
     tram->line_no = line_no;
