@@ -1,11 +1,19 @@
-#include "include/depot.h"
+#include "include/tram.h"
+#include "include/validator.h"
+#define MAX_ARRAY_SIZE 17
 
-void initialize_list();
+
+Tram trams[MAX_ARRAY_SIZE];
+int trams_array_size = 0;
+
+void initialize_array();
+
 void start_ui();
 void print_menu();
 void do_procedure(int);
 void adding_new_record();
 void editing_record();
+void edit_dialog(int, int);
 void deleting_record();
 void cls();
 
@@ -13,26 +21,17 @@ void cls();
 int main()
 {
     cls();
-    initialize_list();
+    initialize_array();
 
     start_ui();
 
-    delete_the_all_list();
     return 0;
 }
 
 
-void initialize_list()
+void initialize_array()
 {
-    add_new_tram_from_input_string("02 ab100 0005 a a");
-    add_new_tram_from_input_string("05 cd101 0002 b b");
-    add_new_tram_from_input_string("01 afsfs 0001 c d");
-    add_new_tram_from_input_string("05 ghafs 0007 d c");
-    add_new_tram_from_input_string("05 ghafs 0002 d ca");
-    add_new_tram_from_input_string("05 zhafa 0004 d c");
-    add_new_tram_from_input_string("05 ghafs 0001 d ab");
-    add_new_tram_from_input_string("05 1hafs 0005 c x");
-    add_new_tram_from_input_string("05 chafs 0005 d f");
+
 }
 
 void cls()
@@ -42,18 +41,16 @@ void cls()
 
 void start_ui()
 {
-    char choice[20];
-    int choice_value;
+    int choice;
     printf("Witaj w programie do obslugi zajezdni tramwajowej!\n");
     printf("----------------------------------------\n\n");
 
     for(;;) {
         print_menu();
-        scanf("%19s", choice);
-        choice_value = to_number(choice);
-        if (!choice_value) break;
+        scanf("%d", &choice);
+        if (!choice) break;
 
-        do_procedure(choice_value);
+        do_procedure(choice);
     }
 
     printf("\n=======================\n");
@@ -63,10 +60,10 @@ void start_ui()
 void print_menu()
 {
     printf("MENU\n");
-    printf("   Manipulacja danymi:\n");
-    printf("1: Dodaj nowa pozycje.\n");
-    printf("2: Edytuj pozycje.\n");
-    printf("3: Usun pozycje.\n");
+    printf("   Modyfikacja:\n");
+    printf("1: Dodaj nowy rekord.\n");
+    printf("2: Edytuj rekord.\n");
+    printf("3: Usun rekord.\n");
     printf("------------\n");
     printf("   Wyswietlanie danych:\n");
     printf("4: Zgodnie z kolejnoscia wprowadzania.\n");
@@ -98,17 +95,17 @@ void do_procedure(int choice)
         }
         case 4: {
             cls();
-            print_the_list_by_record_no();
+            print_the_array_by_record_no();
             break;
         }
         case 5: {
             cls();
-            print_the_list_by_line_no();
+            print_the_array_by_line_no();
             break;
         }
         case 6: {
             cls();
-            print_the_list_by_tram_type();
+            print_the_array_by_tram_type();
             break;
         }
         default: {
@@ -121,44 +118,192 @@ void do_procedure(int choice)
 
 void adding_new_record()
 {
-    char input_string[256];
-    print_the_list_by_record_no();
-    printf("Podaj dane nowego rekordu:\n");
-    printf("[numer linii: 2 cyfry] [typ tramwaju] [numer boczny: 4 cyfry] [nazwisko motorniczego] [imie motorniczego]\n");
+    int i;
+    int line_no;
+    char tram_type[16];
+    int side_no;
+    char motorman_name[256];
 
-    scanf(" %255[^\n]", input_string);
+    if (trams_array_size >= MAX_ARRAY_SIZE) {
+        printf("Tablica jest juz pelna! Nie mozna dodac kolejnych rekordow!\n");
+        return;
+    }
+
+    print_the_array_by_record_no();
+
+    printf("Podaj dane nowego rekordu (0 by przerwac):\n");
+
+    for(;;) {
+        printf("Numer linii (<100): ");
+        scanf("%d", line_no);
+        if (line_no == 0) return;
+        if (!is_line_no_valid(line_no)) {
+            printf("Nieprawidlowy numer linii!\n");
+            continue;
+        }
+        break;
+    }
+
+    for(;;) {
+        printf("Typ tramwaju: ");
+        scanf("%15s", tram_type);
+        if (tram_type[0] == '0' && strlen(tram_type) == 1) return;
+        if (!is_tram_type_valid(tram_type)) {
+            printf("Nieprawidlowy typ tramwaju!\n");
+            continue;
+        }
+        break;
+    }
+
+    for(;;) {
+        printf("Numer boczny (<10000): ");
+        scanf("%d", &side_no);
+        if (line_no == 0) return;
+        if (!is_side_no_valid(side_no)) {
+            printf("Nieprawidlowy numer boczny!\n");
+            continue;
+        }
+        break;
+    }
+
+    for(;;) {
+        printf("Nazwisko i imie motorniczego: ");
+        scanf("%256s", motorman_name);
+        if (motorman_name[0] == '0' && strlen(motorman_name) == 1) return;
+        if (!is_motorman_name_valid(motorman_name)) {
+            printf("Nieprawidlowa godnosc!\n");
+            continue;
+        }
+        break;
+    }
 
     cls();
-    add_new_tram_from_input_string(input_string);
+
+    /* szukanie indeksu z nieuzywanym tramwajem */
+    for (i=0; i<trams_array_size; i++)
+        if (!trams[i].visible) break;
+
+    set_the_tram(&trams[i], i+1, line_no, tram_type, side_no, motorman_name);
+    trams_array_size++;
 }
 
 void editing_record()
 {
-    int idx_value;
-    char input_string[256], idx[20];
+    int idx, choice;
+
     print_the_list_by_record_no();
     printf("Podaj numer rekordu do edycji: ");
-    scanf("%19s", idx);
-    idx_value = to_number(idx);
-
-    printf("\nPodaj nowe dane rekordu (%d.):\n", idx_value);
-    printf("[numer linii: 2 cyfry] [typ tramwaju] [numer boczny: 4 cyfry] [nazwisko motorniczego] [imie motorniczego]\n");
-
-    scanf(" %255[^\n]", input_string);
-
+    scanf("%d", idx);
     cls();
-    edit_tram_with_index_form_input_string(idx_value, input_string);
+
+    for(;;) {
+        print_labels();
+        print_tram_info(trams[idx-1]);
+        printf("-----------\n");
+        printf("Co chcesz zmienic?\n");
+        printf("1. Numer linii\n");
+        printf("2. Typ tramwaju\n");
+        printf("3. Numer boczny\n");
+        printf("4. Imie i nazwisko\n");
+        printf("-----------\n");
+        printf("Podaj numer i nacisnij enter (0 aby zakonczyc edycje): \n");
+        scanf("%d", &choice);
+        if (!choice) break;
+        edit_dialog(choice, idx);
+        cls();
+    }
+}
+
+void edit_dialog(int choice, int idx)
+{
+    int line_no;
+    char tram_type[16];
+    int side_no;
+    char motorman_name[256];
+
+    switch(choice)
+    {
+        case 1: {
+            printf("Aktualnie : %2d\n", trams[idx-1].line_no);
+            printf("Podaj nowe: ");
+            scanf("%d", &line_no);
+            if (!is_line_no_valid(line_no)) {
+                printf("Nieprawidlowy numer linii!\n");
+                break;
+            }
+
+            set_line_no(&trams[idx-1], line_no);
+            break;
+        }
+
+        case 2: {
+            printf("Aktualnie : %2d\n", trams[idx-1].tram_type);
+            printf("Podaj nowe: ");
+            scanf("%15s", tram_type);
+            if (!is_tram_type_valid(tram_type)) {
+                printf("Nieprawidlowy typ tramwaju!\n");
+                break;
+            }
+
+            set_tram_type(&trams[idx-1], tram_type);
+            break;
+        }
+
+        case 3: {
+            printf("Aktualnie : %2d\n", trams[idx-1].side_no);
+            printf("Podaj nowe: ");
+            scanf("%d", &side_no);
+            if (!is_side_no_valid(side_no)) {
+                printf("Nieprawidlowy numer boczny!\n");
+                break;
+            }
+
+            set_side_no(&trams[idx-1], side_no);
+            break;
+        }
+
+        case 4: {
+            printf("Aktualnie : %2d\n", trams[idx-1].motorman_name);
+            printf("Podaj nowe: ");
+            scanf("%15s", motorman_name);
+            if (!is_motorman_name_valid(motorman_name)) {
+                printf("Nieprawidlowa godnosc!\n");
+                break;
+            }
+
+            set_motorman_name(&trams[idx-1], motorman_name);
+            break;
+        }
+    }
 }
 
 void deleting_record()
 {
-    int idx_value;
-    char idx[20];
+    int idx, i;
+    Tram temp_tram;
     print_the_list_by_record_no();
     printf("Podaj numer rekordu do usuniecia: ");
-    scanf("%19s", idx);
-    idx_value = to_number(idx);
+    scanf("%d", idx);
 
+    if (idx > trams_array_size) {
+        printf("Nie ma takiego elementu!\n");
+        return;
+    }
+
+    set_visible(&trams[idx-1], 0);
+
+    /* cofniecie numerow rekordow */
+    for (i=idx; i<trams_array_size; i++)
+        trams[i].record_no--;
+
+    /* wyrzucenie 'ukrytego' rekordu na koniec
+     * aktualnej listy (tuz za rekordami widocznymi */
+    for (i=idx; i<trams_array_size; i++) {
+        temp_tram = trams[i-1];
+        trams[i-1] = trams[i];
+        trams[i] = temp_tram;
+    }
+
+    trams_array_size--;
     cls();
-    delete_tram_with_index(idx_value);
 }

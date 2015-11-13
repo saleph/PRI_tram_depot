@@ -2,21 +2,27 @@
 #define TRAM_H_INCLUDED
 
 #include <stdio.h>
-#include <stdlib.h>
-#include "string_handling.h"
+#include <string.h>
 
-/* TODO: in list's structure - add field RECORD_NO */
 typedef struct {
+    int visible;
+    int record_no;
     int line_no;
-    char *tram_type;
+    char tram_type[16];
     int side_no;
-    char *motorman_surname;
-    char *motorman_name;
+    char motorman_name[256];
 } Tram;
 
-Tram* new_tram(int, char*, int, char*, char*);
-void edit_tram(Tram*, int, char*, int, char*, char*);
-void print_tram_info(Tram*);
-void delete_tram(Tram*);
+void set_the_tram(Tram*, int, int, char[], int, char[]);
+
+void set_visible(Tram*, int);
+void set_record_no(Tram*, int);
+void set_line_no(Tram*, int);
+void set_tram_type(Tram*, char[]);
+void set_side_no(Tram*, int);
+void set_motorman_name(Tram*, char[]);
+
+void print_tram_info(Tram);
+void print_labels();
 
 #endif /* TRAM_H_INCLUDED */

@@ -1,105 +1,61 @@
 #include "../include/tram.h"
 
-Tram* new_tram(int line_no, char* tram_type, int side_no, char* motorman_surname, char* motorman_name)
+
+void set_the_tram(Tram *tram, int record_no, int line_no,
+                  char tram_type[], int side_no, char motorman_name[])
 {
-    Tram* tram;
-    char* tram_type_ptr;
-    char* motorman_name_ptr;
-    char* motorman_surname_ptr;
+    set_visible(tram, 1);
 
-    tram = malloc(sizeof *tram);
-    if (!tram) {
-        printf("Blad alokacji pamieci dla struktury \"Tram\"!\n");
-        return NULL;
-    }
-
-    /* new_string z nagłówka string_handling.h */
-    tram_type_ptr = new_string(tram_type);
-    if (!tram_type_ptr) {
-        printf("Blad alokacji pamieci dla stringa \"typ_tramwaju\"!\n");
-        free(tram);
-        return NULL;
-    }
-
-    motorman_surname_ptr = new_string(motorman_surname);
-    if (!motorman_surname_ptr) {
-        printf("Blad alokacji pamieci dla stringa \"imie_motorniczego\"!\n");
-        free(tram_type_ptr);
-        free(tram);
-        return NULL;
-    }
-
-    motorman_name_ptr = new_string(motorman_name);
-    if (!motorman_name_ptr) {
-        printf("Blad alokacji pamieci dla stringa \"imie_motorniczego\"!\n");
-        free(tram_type_ptr);
-        free(motorman_surname_ptr);
-        free(tram);
-        return NULL;
-    }
-
-    tram->line_no = line_no;
-    tram->tram_type = tram_type_ptr;
-    tram->side_no = side_no;
-    tram->motorman_surname = motorman_surname_ptr;
-    tram->motorman_name = motorman_name_ptr;
-
-    return tram;
+    set_record_no(tram, record_no);
+    set_line_no(tram, line_no);
+    set_tram_type(tram, tram_type);
+    set_side_no(tram, side_no);
+    set_motorman_name(tram, motorman_name);
 }
 
-void edit_tram(Tram* tram, int line_no, char* tram_type, int side_no, char* motorman_surname, char* motorman_name)
+void set_visible(Tram *tram, int visible)
 {
-    char* tram_type_ptr;
-    char* motorman_name_ptr;
-    char* motorman_surname_ptr;
-
-    /* czyszczenie starych wskaznikow na stringa */
-    free(tram->tram_type);
-    free(tram->motorman_surname);
-    free(tram->motorman_name);
-
-    /* new_string z nagłówka string_handling.h */
-    tram_type_ptr = new_string(tram_type);
-    if (!tram_type_ptr) {
-        printf("Blad alokacji pamieci dla stringa \"typ_tramwaju\"!\n");
-        free(tram);
-        return;
-    }
-
-    motorman_surname_ptr = new_string(motorman_surname);
-    if (!motorman_surname_ptr) {
-        printf("Blad alokacji pamieci dla stringa \"imie_motorniczego\"!\n");
-        free(tram_type_ptr);
-        free(tram);
-        return;
-    }
-
-    motorman_name_ptr = new_string(motorman_name);
-    if (!motorman_name_ptr) {
-        printf("Blad alokacji pamieci dla stringa \"imie_motorniczego\"!\n");
-        free(tram_type_ptr);
-        free(motorman_surname_ptr);
-        free(tram);
-        return;
-    }
-
-    tram->line_no = line_no;
-    tram->tram_type = tram_type_ptr;
-    tram->side_no = side_no;
-    tram->motorman_surname = motorman_surname_ptr;
-    tram->motorman_name = motorman_name_ptr;
+    (*tram).visible = visible;
 }
 
-void print_tram_info(Tram* tram)
+void set_record_no(Tram *tram, int record_no)
 {
-    printf("%02d %s %04d %s %s\n", tram->line_no, tram->tram_type,
-           tram->side_no, tram->motorman_surname, tram->motorman_name);
+    (*tram).record_no = record_no;
 }
 
-void delete_tram(Tram* tram)
+void set_line_no(Tram *tram, int line_no)
 {
-    free(tram->tram_type);
-    free(tram->motorman_name);
-    free(tram->motorman_surname);
-    free(tram);
+    (*tram).line_no = line_no;
+}
+
+void set_tram_type(Tram *tram, char tram_type[])
+{
+    int i;
+    for (i=0; i<strlen(tram_type); i++)
+        (*tram).tram_type[i] = tram_type[i];
+    (*tram).tram_type[strlen(tram_type)] = '\0';
+}
+
+void set_side_no(Tram *tram, int side_no)
+{
+    (*tram).side_no = side_no;
+}
+
+void set_motorman_name(Tram *tram, char motorman_name[])
+{
+    int i;
+    for (i=0; i<strlen(motorman_name); i++)
+        (*tram).motorman_name[i] = motorman_name[i];
+    (*tram).motorman_name[strlen(motorman_name)] = '\0';
+}
+
+void print_tram_info(Tram tram)
+{
+    printf("%2d: | %2d | %6s | %4d | %s\n", tram.record_no, tram.line_no,
+           tram.tram_type, tram.side_no, tram.motorman_name);
+}
+
+void print_labels()
+{
+    printf("Numer rekordu | Numer linii | Typ tramwaju | Numer boczny | Nazwisko i imie motorniczego\n");
 }
