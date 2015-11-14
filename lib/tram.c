@@ -51,11 +51,11 @@ void set_motorman_name(Tram *tram, char motorman_name[])
 
 void print_tram_info(Tram tram)
 {
-    printf("%2d: | %2d | %6s | %4d | %s\n", tram.record_no, tram.line_no,
+    printf(" %2d: |       %2d | %12s |         %04d | %s\n", tram.record_no, tram.line_no,
            tram.tram_type, tram.side_no, tram.motorman_name);
 }
 
 void print_labels()
 {
-    printf("Numer rekordu | Numer linii | Typ tramwaju | Numer boczny | Nazwisko i imie motorniczego\n");
+    printf("  Rekord | Nr linii | Typ tramwaju | Numer boczny | Nazwisko i imie motorniczego\n");
 }

@@ -20,7 +20,7 @@ int is_tram_type_valid(char tram_type[])
             continue;
 
         if (is_lowercase(tram_type[i])) {
-            make_char_uppercase(tram_type[i]);
+            make_char_uppercase(&tram_type[i]);
             continue;
         }
 
@@ -91,7 +91,7 @@ int is_motorman_name_valid(char name[])
             if (is_uppercase(name[i]))
                 continue;
             else if (is_lowercase(name[i])) {
-                make_char_uppercase(name[i]);
+                make_char_uppercase(&name[i]);
                 continue;
             }
         }
@@ -100,7 +100,7 @@ int is_motorman_name_valid(char name[])
             if (is_lowercase(name[i]))
                 continue;
             else if (is_uppercase(name[i])) {
-                make_char_lowercase(name[i]);
+                make_char_lowercase(&name[i]);
                 continue;
             }
         }
