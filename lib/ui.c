@@ -34,7 +34,7 @@ void print_menu()
     printf("------------\n");
     printf("   Wyswietlanie danych:\n");
     printf("4: Zgodnie z kolejnoscia wprowadzania.\n");
-    printf("5: Rosnaco wedlug numerow linii, a w ramach tego rosnaco wedlug numerow wozow.\n");
+    printf("5: Rosnaco wedlug numerow linii, a w ramach tego rosnaco wedlug numerow bocznych.\n");
     printf("6: Alfabetycznie wedlug typu tramwaju, a w ramach tego wedlug nazwiska i imienia motorniczego.\n");
     printf("------------\n");
     printf("0: WYJSCIE.\n");
@@ -67,12 +67,12 @@ void do_procedure(int choice)
         }
         case 5: {
             cls();
-            //print_the_array_by_line_no();
+            print_the_array_by_line_no();
             break;
         }
         case 6: {
             cls();
-            //print_the_array_by_tram_type();
+            print_the_array_by_tram_type();
             break;
         }
         default: {
@@ -103,7 +103,10 @@ void adding_new_record()
     for(;;) {
         printf("Numer linii (<100): ");
         scanf("%d", &line_no);
-        if (line_no == 0) return;
+        if (line_no == 0) {
+            cls();
+            return;
+        }
         if (!is_line_no_valid(line_no)) {
             printf("Nieprawidlowy numer linii!\n");
             continue;
@@ -114,7 +117,10 @@ void adding_new_record()
     for(;;) {
         printf("Typ tramwaju: ");
         scanf("%s", tram_type);
-        if (tram_type[0] == '0' && strlen(tram_type) == 1) return;
+        if (tram_type[0] == '0' && strlen(tram_type) == 1) {
+            cls();
+            return;
+        }
         if (!is_tram_type_valid(tram_type)) {
             printf("Nieprawidlowy typ tramwaju!\n");
             continue;
@@ -125,7 +131,10 @@ void adding_new_record()
     for(;;) {
         printf("Numer boczny (<10000): ");
         scanf("%d", &side_no);
-        if (line_no == 0) return;
+        if (line_no == 0) {
+            cls();
+            return;
+        }
         if (!is_side_no_valid(side_no)) {
             printf("Nieprawidlowy numer boczny!\n");
             continue;
@@ -136,7 +145,10 @@ void adding_new_record()
     for(;;) {
         printf("Nazwisko i imie motorniczego: ");
         scanf(" %255[^\n]", motorman_name);
-        if (motorman_name[0] == '0' && strlen(motorman_name) == 1) return;
+        if (motorman_name[0] == '0' && strlen(motorman_name) == 1) {
+            cls();
+            return;
+        }
         if (!is_motorman_name_valid(motorman_name)) {
             printf("Nieprawidlowa godnosc!\n");
             continue;
@@ -163,8 +175,14 @@ void editing_record()
     scanf("%d", &idx);
     cls();
 
+    if (idx > trams_array_size) {
+        printf("Nie ma takiego rekordu!\n");
+        return;
+    }
+
     for(;;) {
         print_labels();
+        printf("%2d. ", 1);
         print_tram_info(trams[idx-1]);
         printf("-----------\n");
         printf("Co chcesz zmienic?\n");
@@ -173,12 +191,13 @@ void editing_record()
         printf("3. Numer boczny\n");
         printf("4. Imie i nazwisko\n");
         printf("-----------\n");
-        printf("Podaj numer i nacisnij enter (0 aby zakonczyc edycje): \n");
+        printf("Podaj numer i nacisnij enter (0 aby zakonczyc edycje): ");
         scanf("%d", &choice);
         if (!choice) break;
         edit_dialog(choice, idx);
         cls();
     }
+    cls();
 }
 
 void edit_dialog(int choice, int idx)
@@ -217,7 +236,7 @@ void edit_dialog(int choice, int idx)
         }
 
         case 3: {
-            printf("Aktualnie : %4d\n", trams[idx-1].side_no);
+            printf("Aktualnie : %04d\n", trams[idx-1].side_no);
             printf("Podaj nowe: ");
             scanf("%d", &side_no);
             if (!is_side_no_valid(side_no)) {
@@ -232,7 +251,7 @@ void edit_dialog(int choice, int idx)
         case 4: {
             printf("Aktualnie : %s\n", trams[idx-1].motorman_name);
             printf("Podaj nowe: ");
-            scanf("%s", motorman_name);
+            scanf(" %255[^\n]", motorman_name);
             if (!is_motorman_name_valid(motorman_name)) {
                 printf("Nieprawidlowa godnosc!\n");
                 break;
@@ -253,7 +272,8 @@ void deleting_record()
     scanf("%d", &idx);
 
     if (idx > trams_array_size) {
-        printf("Nie ma takiego elementu!\n");
+        cls();
+        printf("Nie ma takiego rekordu!\n");
         return;
     }
 

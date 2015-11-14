@@ -34,9 +34,118 @@ void print_the_array_by_record_no()
         return;
     }
 
+    printf("Rosnaco wzgledem kolejnosci wprowadzania:\n");
     print_labels();
     for (i=0; i<trams_array_size; i++) {
         printf("%2d. ", i+1);
         print_tram_info(trams[i]);
     }
+
+    printf("------------\n");
+}
+
+void print_the_array_by_line_no()
+{
+    int *indexes, i;
+
+    if (!trams_array_size) {
+        printf("Tablica tramwajow jest pusta!\n");
+        return;
+    }
+
+    indexes = get_sorted_by_line_no();
+
+    printf("Rosnaco wzgledem numeru linii:\n");
+    print_labels();
+    for (i=0; i<trams_array_size; i++) {
+        printf("%2d. ", i+1);
+        print_tram_info(trams[indexes[i]]);
+    }
+
+    printf("------------\n");
+}
+
+int* get_sorted_by_line_no()
+{
+    static int indexes[17];
+    int i, n;
+    n = trams_array_size;
+
+    for (i=0; i<n; i++)
+        indexes[i] = i;
+
+    do {
+        for (i=0; i<n-1; i++) {
+            /* porownaj numery linii */
+            if (trams[indexes[i]].line_no > trams[indexes[i+1]].line_no)
+                swap_elements(&indexes[i], &indexes[i+1]);
+
+            /* jesli numery linii rowne, porownaj numery boczne */
+            if (trams[indexes[i]].line_no == trams[indexes[i+1]].line_no)
+                if(trams[indexes[i]].side_no > trams[indexes[i+1]].side_no)
+                    swap_elements(&indexes[i], &indexes[i+1]);
+        }
+        n--;
+    } while (n > 1);
+
+    return indexes;
+}
+
+void swap_elements(int *first, int *second)
+{
+    int temp;
+
+    temp = *first;
+    *first = *second;
+    *second = temp;
+}
+
+void print_the_array_by_tram_type()
+{
+    int *indexes, i;
+
+    if (!trams_array_size) {
+        printf("Tablica tramwajow jest pusta!\n");
+        return;
+    }
+
+    indexes = get_sorted_by_tram_type();
+
+    printf("Alfabetycznie wzgledem typu tramwaju:\n");
+    print_labels();
+    for (i=0; i<trams_array_size; i++) {
+        printf("%2d. ", i+1);
+        print_tram_info(trams[indexes[i]]);
+    }
+
+    printf("------------\n");
+}
+
+int* get_sorted_by_tram_type()
+{
+    static int indexes[17];
+    int i, n, ret_value;
+    n = trams_array_size;
+
+    for (i=0; i<n; i++)
+        indexes[i] = i;
+
+    do {
+        for (i=0; i<n-1; i++) {
+            /* porownaj typ tramwaju */
+            ret_value = strcmp(trams[indexes[i]].tram_type, trams[indexes[i+1]].tram_type);
+            if (ret_value > 0)
+                swap_elements(&indexes[i], &indexes[i+1]);
+
+            if (ret_value == 0) {
+                /* jesli takie same, porownaj imiona */
+                ret_value = strcmp(trams[indexes[i]].motorman_name, trams[indexes[i+1]].motorman_name);
+                if(ret_value > 0)
+                    swap_elements(&indexes[i], &indexes[i+1]);
+            }
+        }
+        n--;
+    } while (n > 1);
+
+    return indexes;
 }

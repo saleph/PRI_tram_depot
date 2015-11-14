@@ -16,4 +16,9 @@ void print_the_array_by_record_no();
 void print_the_array_by_line_no();
 void print_the_array_by_tram_type();
 
+int* get_sorted_by_line_no();
+int* get_sorted_by_tram_type();
+
+void swap_elements(int*, int*);
+
 #endif /* TRAMS_ARRAY_H_INCLUDED */
