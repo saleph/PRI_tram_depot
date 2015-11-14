@@ -13,7 +13,7 @@ void initialize_array()
     set_the_tram(&trams[3], 4, 5, "TRN1", 7658, "Shopenhauer Artur");
     set_the_tram(&trams[4], 5, 5, "TRN2", 6789, "Siemiow Dimitrij");
     set_the_tram(&trams[5], 6, 5, "IMABOAT", 5454, "Zeglarz Krzysztof");
-    set_the_tram(&trams[6], 7, 10, "123N", 3264, "Einstein Albert");
+    set_the_tram(&trams[6], 7, 10, "IMABOAT", 3264, "Zeglarz Krzysztof Junior");
     set_the_tram(&trams[7], 8, 22, "K51W", 3467, "Godna Grazyna");
     set_the_tram(&trams[8], 9, 25, "12", 1678, "Garnek Miroslaw");
     set_the_tram(&trams[9], 10, 97, "18", 5436, "Szyna Maciej");
@@ -21,7 +21,7 @@ void initialize_array()
     set_the_tram(&trams[11], 12, 6, "WMKM", 458, "Sosna Mikolaj");
     set_the_tram(&trams[12], 13, 33, "WW123", 1227, "Chrobry Boleslaw");
     set_the_tram(&trams[13], 14, 45, "14", 5656, "Wodzirej Mateusz Skarabeusz");
-    set_the_tram(&trams[14], 15, 55, "15", 5677, "Czarna Katarzyna");
+    set_the_tram(&trams[14], 15, 55, "15", 5677, "Einstein Albert");
     trams_array_size = 15;
 }
 
