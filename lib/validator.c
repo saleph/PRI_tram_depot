@@ -116,3 +116,31 @@ void make_char_lowercase(char* character)
 {
     *character += (int)('a') - (int)('A');
 }
+
+int is_number(char str[])
+{
+    unsigned int i;
+    for (i=0; i<strlen(str); i++)
+        if (!is_digit(str[i])) return 0;
+
+    return 1;
+}
+
+int to_number(char a_string[])
+{
+    unsigned int i;
+    int number;
+    number = to_digit(a_string[0]);
+    for (i=1; i<strlen(a_string); i++)
+        number = number*10 + to_digit(a_string[i]);
+
+    return number;
+}
+
+int to_digit(char character)
+{
+    int digit;
+    /* sprawdzenie, czy to cyfra nastapilo w validator.h */
+    digit = (int)character - (int)('0');
+    return digit;
+}
