@@ -8,7 +8,7 @@ void cls()
 
 void start_ui()
 {
-    int temp_str[16];
+    char temp_str[16];
     int choice;
     printf("Witaj w programie do obslugi zajezdni tramwajowej!\n");
     printf("----------------------------------------\n\n");
@@ -191,7 +191,7 @@ void adding_new_record()
 
 void editing_record()
 {
-    char idx_str[16];
+    char idx_str[16], choice_str[16];
     int idx, choice;
 
     print_the_array_by_record_no();
@@ -227,7 +227,13 @@ void editing_record()
         printf("4. Imie i nazwisko\n");
         printf("-----------\n");
         printf("Podaj numer i nacisnij enter (0 aby zakonczyc edycje): ");
-        scanf("%d", &choice);
+        scanf("%s", choice_str);
+        while (!is_number(choice_str)) {
+            printf("To nie jest liczba!\n");
+            printf("Podaj numer i nacisnij enter (0 aby zakonczyc edycje): ");
+            scanf("%s", choice_str);
+        }
+        choice = to_number(choice_str);
         if (!choice) break;
         edit_dialog(choice, idx);
 
