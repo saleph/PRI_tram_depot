@@ -15,11 +15,11 @@ void start_ui()
 
     for(;;) {
         print_menu();
-        scanf("%s", temp_str);
+        scanf(" %15[^\n]", temp_str);
         while (!is_number(temp_str)) {
             printf("To nie jest liczba!\n");
             printf("Podaj numer operacji i nacisnij enter: ");
-            scanf("%s", temp_str);
+            scanf(" %15[^\n]", temp_str);
         }
         choice = atoi(temp_str);
 
@@ -111,7 +111,7 @@ void adding_new_record()
 
     for(;;) {
         printf("Numer linii (<100): ");
-        scanf("%s", temp_str);
+        scanf(" %15[^\n]", temp_str);
         if (!is_number(temp_str)) {
             printf("To nie jest liczba!\n");
             continue;
@@ -132,7 +132,7 @@ void adding_new_record()
 
     for(;;) {
         printf("Typ tramwaju: ");
-        scanf("%s", tram_type);
+        scanf(" %15[^\n]", tram_type);
         if (tram_type[0] == '0' && strlen(tram_type) == 1) {
             cls();
             return;
@@ -146,7 +146,7 @@ void adding_new_record()
 
     for(;;) {
         printf("Numer boczny (<10000): ");
-        scanf("%s", temp_str);
+        scanf(" %15[^\n]", temp_str);
         if (!is_number(temp_str)) {
             printf("To nie jest liczba!\n");
             continue;
@@ -196,7 +196,7 @@ void editing_record()
 
     print_the_array_by_record_no();
     printf("Podaj numer rekordu do edycji (0 by przerwac): ");
-    scanf("%s", idx_str);
+    scanf(" %15[^\n]", idx_str);
     cls();
     if (!is_number(idx_str)) {
         printf("To nie jest liczba!\n");
@@ -231,7 +231,7 @@ void editing_record()
         while (!is_number(choice_str)) {
             printf("To nie jest liczba!\n");
             printf("Podaj numer i nacisnij enter (0 aby zakonczyc edycje): ");
-            scanf("%s", choice_str);
+            scanf(" %15[^\n]", choice_str);
         }
         choice = atoi(choice_str);
         if (!choice) break;
@@ -254,7 +254,7 @@ void edit_dialog(int choice, int idx)
         case 1: {
             printf("Aktualnie : %2d\n", trams[idx-1].line_no);
             printf("Podaj nowe: ");
-            scanf("%s", temp_str);
+            scanf(" %15[^\n]", temp_str);
             cls();
             if (!is_number(temp_str)) {
                 printf("To nie jest liczba!\n");
@@ -277,7 +277,7 @@ void edit_dialog(int choice, int idx)
         case 2: {
             printf("Aktualnie : %s\n", trams[idx-1].tram_type);
             printf("Podaj nowe: ");
-            scanf("%s", tram_type);
+            scanf(" %15[^\n]", tram_type);
             if (!is_tram_type_valid(tram_type)) {
                 cls();
                 printf("Nieprawidlowy typ tramwaju!\n");
@@ -292,7 +292,7 @@ void edit_dialog(int choice, int idx)
         case 3: {
             printf("Aktualnie : %04d\n", trams[idx-1].side_no);
             printf("Podaj nowe: ");
-            scanf("%s", temp_str);
+            scanf(" %15[^\n]", temp_str);
             cls();
             if (!is_number(temp_str)) {
                 printf("To nie jest liczba!\n");
@@ -336,7 +336,7 @@ void deleting_record()
     Tram temp_tram;
     print_the_array_by_record_no();
     printf("Podaj numer rekordu do usuniecia (0 by przerwac): ");
-    scanf("%s", idx_str);
+    scanf(" %15[^\n]", idx_str);
     cls();
     if (!is_number(idx_str)) {
         printf("To nie jest liczba!\n");
