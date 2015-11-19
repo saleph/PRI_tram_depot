@@ -3,9 +3,7 @@
 
 int is_line_no_valid(int line_no)
 {
-    if (line_no >= 0 && line_no <= 99)
-        return 1;
-    return 0;
+    return (line_no >= 0 && line_no <= 99) ? 1 : 0;
 }
 
 int is_tram_type_valid(char tram_type[])
@@ -31,9 +29,7 @@ int is_tram_type_valid(char tram_type[])
 
 int is_side_no_valid(int side_no)
 {
-    if (side_no >= 0 && side_no <= 9999)
-        return 1;
-    return 0;
+    return (side_no >= 0 && side_no <= 9999) ? 1 : 0;
 }
 
 int is_motorman_name_valid(char name[])

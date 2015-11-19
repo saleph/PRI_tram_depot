@@ -285,7 +285,7 @@ void edit_dialog(int choice, int idx)
             }
 
             cls();
-            strcpy(&trams[idx-1].tram_type, tram_type);
+            strcpy(trams[idx-1].tram_type, tram_type);
             break;
         }
 
@@ -323,7 +323,7 @@ void edit_dialog(int choice, int idx)
             }
 
             cls();
-            strcpy(&trams[idx-1].motorman_name, motorman_name);
+            strcpy(trams[idx-1].motorman_name, motorman_name);
             break;
         }
     }

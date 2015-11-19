@@ -1,6 +1,7 @@
 #ifndef UI_H_INCLUDED
 #define UI_H_INCLUDED
 
+#include <stdlib.h>
 #include "trams_array.h"
 
 void start_ui();

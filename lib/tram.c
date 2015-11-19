@@ -7,9 +7,9 @@ void set_the_tram(Tram *tram, int record_no, int line_no,
     tram->visible = 1;
     tram->record_no = record_no;
     tram->line_no = line_no;
-    strcpy(&tram->tram_type, tram_type);
+    strcpy(tram->tram_type, tram_type);
     tram->side_no = side_no;
-    strcpy(&tram->motorman_name, motorman_name);
+    strcpy(tram->motorman_name, motorman_name);
 }
 
 void print_tram_info(Tram tram)
