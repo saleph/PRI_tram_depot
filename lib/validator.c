@@ -13,14 +13,11 @@ int is_tram_type_valid(char tram_type[])
     unsigned int i;
 
     for (i=0; i<strlen(tram_type); i++) {
-        if (is_digit(tram_type[i]))
+        if (isdigit(tram_type[i]) || isupper(tram_type[i]))
             continue;
 
-        if (is_uppercase(tram_type[i]))
-            continue;
-
-        if (is_lowercase(tram_type[i])) {
-            make_char_uppercase(&tram_type[i]);
+        if (islower(tram_type[i])) {
+            tram_type[i] = toupper(tram_type[i]);
             continue;
         }
 
@@ -29,45 +26,6 @@ int is_tram_type_valid(char tram_type[])
     }
 
     return 1;
-}
-
-int is_digit(char character)
-{
-    int ascii_code;
-    ascii_code = (int)character;
-
-    if (ascii_code >= (int)('0') && ascii_code <= (int)('9'))
-        return 1;
-    else
-        return 0;
-}
-
-
-int is_uppercase(char character)
-{
-    int ascii_code;
-    ascii_code = (int)character;
-
-    if (ascii_code >= (int)('A') && ascii_code <= (int)('Z'))
-        return 1;
-    else
-        return 0;
-}
-
-int is_lowercase(char character)
-{
-    int ascii_code;
-    ascii_code = (int)character;
-
-    if (ascii_code >= (int)('a') && ascii_code <= (int)('z'))
-        return 1;
-    else
-        return 0;
-}
-
-void make_char_uppercase(char *character)
-{
-    *character -= (int)('z') - (int)('Z');
 }
 
 int is_side_no_valid(int side_no)
@@ -82,25 +40,27 @@ int is_motorman_name_valid(char name[])
     unsigned int i;
 
     for (i=0; i<strlen(name); i++) {
-        if (name[i] == ' ')
+        if (isspace(name[i]))
             continue;
 
         /* uczynienie znaku pierwszego / pierwszego po spacji
          * wielka litera */
-        if (i == 0 || (i >= 1 && name[i-1] == ' ')) {
-            if (is_uppercase(name[i]))
+        if (i == 0 || (i >= 1 && isspace(name[i-1]))) {
+            if (isupper(name[i]))
                 continue;
-            else if (is_lowercase(name[i])) {
-                make_char_uppercase(&name[i]);
+
+            if (islower(name[i])) {
+                name[i] = toupper(name[i]);
                 continue;
             }
         }
         /* dla pozostalych znakow zastosowano zmniejszenie */
         else {
-            if (is_lowercase(name[i]))
+            if (islower(name[i]))
                 continue;
-            else if (is_uppercase(name[i])) {
-                make_char_lowercase(&name[i]);
+
+            if (isupper(name[i])) {
+                name[i] = tolower(name[i]);
                 continue;
             }
         }
@@ -112,35 +72,12 @@ int is_motorman_name_valid(char name[])
     return 1;
 }
 
-void make_char_lowercase(char* character)
-{
-    *character += (int)('a') - (int)('A');
-}
-
-int is_number(char str[])
+int is_number(char a_string[])
 {
     unsigned int i;
-    for (i=0; i<strlen(str); i++)
-        if (!is_digit(str[i])) return 0;
+    for (i=0; i<strlen(a_string); i++)
+        if (!isdigit(a_string[i]))
+            return 0;
 
     return 1;
-}
-
-int to_number(char a_string[])
-{
-    unsigned int i;
-    int number;
-    number = to_digit(a_string[0]);
-    for (i=1; i<strlen(a_string); i++)
-        number = number*10 + to_digit(a_string[i]);
-
-    return number;
-}
-
-int to_digit(char character)
-{
-    int digit;
-    /* sprawdzenie, czy to cyfra nastapilo w validator.h */
-    digit = (int)character - (int)('0');
-    return digit;
 }

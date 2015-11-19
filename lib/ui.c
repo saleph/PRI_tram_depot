@@ -21,7 +21,7 @@ void start_ui()
             printf("Podaj numer operacji i nacisnij enter: ");
             scanf("%s", temp_str);
         }
-        choice = to_number(temp_str);
+        choice = atoi(temp_str);
 
         if (!choice) break;
 
@@ -117,7 +117,7 @@ void adding_new_record()
             continue;
         }
         else
-            line_no = to_number(temp_str);
+            line_no = atoi(temp_str);
 
         if (line_no == 0) {
             cls();
@@ -152,7 +152,7 @@ void adding_new_record()
             continue;
         }
         else
-            side_no = to_number(temp_str);
+            side_no = atoi(temp_str);
 
         if (side_no == 0) {
             cls();
@@ -203,7 +203,7 @@ void editing_record()
         return;
     }
     else
-        idx = to_number(idx_str);
+        idx = atoi(idx_str);
 
     if (idx > trams_array_size) {
         printf("Nie ma takiego rekordu!\n");
@@ -233,7 +233,7 @@ void editing_record()
             printf("Podaj numer i nacisnij enter (0 aby zakonczyc edycje): ");
             scanf("%s", choice_str);
         }
-        choice = to_number(choice_str);
+        choice = atoi(choice_str);
         if (!choice) break;
         edit_dialog(choice, idx);
 
@@ -261,7 +261,7 @@ void edit_dialog(int choice, int idx)
                 break;
             }
             else
-                line_no = to_number(temp_str);
+                line_no = atoi(temp_str);
 
             if (!is_line_no_valid(line_no)) {
                 cls();
@@ -299,7 +299,7 @@ void edit_dialog(int choice, int idx)
                 break;
             }
             else
-                side_no = to_number(temp_str);
+                side_no = atoi(temp_str);
 
             if (!is_side_no_valid(side_no)) {
                 cls();
@@ -343,7 +343,7 @@ void deleting_record()
         return;
     }
     else
-        idx = to_number(idx_str);
+        idx = atoi(idx_str);
 
     if (idx > trams_array_size) {
         cls();
