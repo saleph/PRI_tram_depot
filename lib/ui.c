@@ -270,7 +270,7 @@ void edit_dialog(int choice, int idx)
             }
 
             cls();
-            set_line_no(&trams[idx-1], line_no);
+            trams[idx-1].line_no = line_no;
             break;
         }
 
@@ -285,7 +285,7 @@ void edit_dialog(int choice, int idx)
             }
 
             cls();
-            set_tram_type(&trams[idx-1], tram_type);
+            strcpy(&trams[idx-1].tram_type, tram_type);
             break;
         }
 
@@ -308,7 +308,7 @@ void edit_dialog(int choice, int idx)
             }
 
             cls();
-            set_side_no(&trams[idx-1], side_no);
+            trams[idx-1].side_no = side_no;
             break;
         }
 
@@ -323,7 +323,7 @@ void edit_dialog(int choice, int idx)
             }
 
             cls();
-            set_motorman_name(&trams[idx-1], motorman_name);
+            strcpy(&trams[idx-1].motorman_name, motorman_name);
             break;
         }
     }
@@ -356,7 +356,7 @@ void deleting_record()
         return;
     }
 
-    set_visible(&trams[idx-1], 0);
+    trams[idx-1].visible = 0;
 
     /* cofniecie numerow rekordow */
     for (i=idx; i<trams_array_size; i++)

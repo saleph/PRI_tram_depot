@@ -13,6 +13,7 @@ int is_tram_type_valid(char tram_type[])
     unsigned int i;
 
     for (i=0; i<strlen(tram_type); i++) {
+        /* dla cyfr i wielkich liter nic nie trzeba robic */
         if (isdigit(tram_type[i]) || isupper(tram_type[i]))
             continue;
 
@@ -64,11 +65,12 @@ int is_motorman_name_valid(char name[])
                 continue;
             }
         }
+
         /* jesli dany znak nie jest litera */
         return 0;
     }
 
-    /* jesli sprawdzenie przebieglo pomyslnie */
+    /* jesli sprawdzenie i zamiany przebiegly pomyslnie */
     return 1;
 }
 

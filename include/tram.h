@@ -15,13 +15,6 @@ typedef struct {
 
 void set_the_tram(Tram*, int, int, char[], int, char[]);
 
-void set_visible(Tram*, int);
-void set_record_no(Tram*, int);
-void set_line_no(Tram*, int);
-void set_tram_type(Tram*, char[]);
-void set_side_no(Tram*, int);
-void set_motorman_name(Tram*, char[]);
-
 void print_tram_info(Tram);
 void print_labels();
 

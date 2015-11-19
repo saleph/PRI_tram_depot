@@ -67,7 +67,7 @@ void print_the_array_by_line_no()
 
 int* get_sorted_by_line_no()
 {
-    static int indexes[17];
+    static int indexes[MAX_ARRAY_SIZE];
     int i, n;
     n = trams_array_size;
 
@@ -123,7 +123,7 @@ void print_the_array_by_tram_type()
 
 int* get_sorted_by_tram_type()
 {
-    static int indexes[17];
+    static int indexes[MAX_ARRAY_SIZE];
     int i, n, ret_value;
     n = trams_array_size;
 
