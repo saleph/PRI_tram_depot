@@ -55,7 +55,7 @@ Przypadki pustej tablicy (dla edycji i usuwania) zostają sprawdzone już na poc
 
 `int is_side_no_valid(int)`: sprawdza, czy numer boczny zawiera się w odpowiedznim przedziale i zwraca 1, jeśli OK, a 0 jeśli jest błędny.
 
-`int is_motorman_name_valid(char[])`: sprawdza, czy nazwisko i imię jest poprawne. Jeśli pierwsze litery jakiegoś wyrazów są małe, zamienia je na wielkie; jeśli wewnętrzne litery są wielkie, zamienia je na małe; jeśli natrafi na jakiś znak niealfabetyczny - zwraca 0. Jeśli wszystko poszło dobrze - zwraca 1.
+`int is_motorman_name_valid(char[])`: sprawdza, czy nazwisko i imię jest poprawne. Jeśli pierwsza litera któregoś z wyrazów jest mała, zamienia ją na wielkią; jeśli wewnętrzne litery są wielkie, zamienia je na małe; jeśli natrafi na jakiś znak niealfabetyczny - zwraca 0. Jeśli wszystko poszło dobrze - zwraca 1.
 
 `int is_number(char[])`: prosta funkcja sprawdzająca, czy dany string jest liczbą. Iteruje po całym stringu i jeśli znak nie jest cyfrą, zwraca 0. Jeśli zaś wszystkie znaki są cyframi, zwraca 1.
 
@@ -80,18 +80,18 @@ Przypadki pustej tablicy (dla edycji i usuwania) zostają sprawdzone już na poc
 `void swap_elements(int*, int*)`: prosta funkcja zamieniająca miejscami 2 elementy tablicy typu `int`.
 
 #### **ui.h**
-`void start_ui()`
+`void start_ui()`: główna pętla interfejsu, odpowiada za pobranie od użytkownika jaką akcję chciałby wykonać.
 
-`void print_menu()`
+`void print_menu()`: procedura wyświetlająca menu programu na standardowym wyjściu.
 
-`void do_procedure(int)`
+`void do_procedure(int)`: procedura, która w zależności od podanej przez użytkownika liczby, zleca innej funkcji wykonanie określonego zadania.
 
-`void adding_new_record()`
+`void adding_new_record()`: procedura dodawania nowego rekordu. Pobiera od użytkownika nowe dane na bieżąco je walidując. Po tym, jak użytkownik wprowadzi poprawnie wszystkie dane, procedura w pętli szuka pierwszego, niewidocznego elementu w tablicy `trams`, a następnie wywołuje dla niego funkcję `set_the_tram`.
 
-`void editing_record()`
+`void editing_record()`: procedura najpierw prosi użytkownika o podanie indeksu. Następnie prosi w pętli o podanie numeru pola, które użytkownik chce zedytować. Po jego wybraniu wystarczy, że wpisze nową wartość, a ta zostanie natychmiast po walidacji zapisana w danej strukturze. Przy czym użytkownik może wielokrotnie edytować każde z pól wybranej struktury, a edycję kończy wprowadzeniem 0.
 
-`void edit_dialog(int, int)`
+`void edit_dialog(int, int)`: procedura odpowiadająca za bezpośrednią edycję wybranej struktury. Przeprowadza także walidację wejścia.
 
-`void deleting_record()`
+`void deleting_record()`: procedura usuwania rekordu. Po podaniu prawidłowego indeksu rekordu, następuje zmiana jego flagi na 0, wszystkim elementom po usuwanym zostaje zmniejszone o 1 *numer rekordu* i "podsuwają" się w górę listy, zapełniając miejce po usuniętym elemencie. Zaś usuwany rekord zostaje przełożony za ostatni widoczny. 
 
-`void cls()`
+`void cls()`: prosta procedura, która czyści ekran konsoli za pomocą funkcji `printf`.
