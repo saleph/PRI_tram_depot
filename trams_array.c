@@ -1,4 +1,4 @@
-#include "../include/trams_array.h"
+#include "trams_array.h"
 
 
 Tram trams[MAX_ARRAY_SIZE];

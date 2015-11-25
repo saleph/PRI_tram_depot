@@ -1,4 +1,4 @@
-#include "../include/tram.h"
+#include "tram.h"
 
 
 void set_the_tram(Tram *tram, int record_no, int line_no,
